@@ -379,7 +379,8 @@
 	<!-- Start Hero Area -->
 	<section class="hero-slider">
 		<!-- Static Hero (No Slider) -->
-		<div class="single-slider" style="background-image:url('{{ asset('wholesale_hero_1.png') }}');">
+		<div class="single-slider"
+			style="background-image:url('{{ \App\Models\Setting::get('hero_image') ? asset('storage/' . \App\Models\Setting::get('hero_image')) : asset('wholesale_hero_1.png') }}');">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12 col-12">
@@ -410,12 +411,12 @@
 					<div class="product-info">
 						<!-- <div class="nav-main">
 
-										<ul class="nav nav-tabs" id="myTab" role="tablist">
-											<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#all" role="tab">All
-													Products</a></li>
-										</ul>
+											<ul class="nav nav-tabs" id="myTab" role="tablist">
+												<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#all" role="tab">All
+														Products</a></li>
+											</ul>
 
-									</div> -->
+										</div> -->
 						<div class="tab-content" id="myTabContent">
 							<!-- Start Single Tab -->
 							<div class="tab-pane fade show active" id="all" role="tabpanel">
@@ -646,24 +647,24 @@
 
 	<!-- Start Shop Newsletter  -->
 	<!-- <section class="shop-newsletter section">
-																								<div class="container">
-																									<div class="inner-top">
-																										<div class="row">
-																											<div class="col-lg-8 offset-lg-2 col-12">
+																									<div class="container">
+																										<div class="inner-top">
+																											<div class="row">
+																												<div class="col-lg-8 offset-lg-2 col-12">
 
-																												<div class="inner">
-																													<h4>Newsletter</h4>
-																													<p> Subscribe to our newsletter and get <span>10%</span> off your first purchase</p>
-																													<form action="#" method="get" target="_blank" class="newsletter-inner">
-																														<input name="EMAIL" placeholder="Your email address" required="" type="email">
-																														<button class="btn">Subscribe</button>
-																													</form>
+																													<div class="inner">
+																														<h4>Newsletter</h4>
+																														<p> Subscribe to our newsletter and get <span>10%</span> off your first purchase</p>
+																														<form action="#" method="get" target="_blank" class="newsletter-inner">
+																															<input name="EMAIL" placeholder="Your email address" required="" type="email">
+																															<button class="btn">Subscribe</button>
+																														</form>
+																													</div>
+
 																												</div>
-
 																											</div>
 																										</div>
 																									</div>
-																								</div>
-																							</section> -->
+																								</section> -->
 	<!-- End Shop Newsletter -->
 @endsection

@@ -71,40 +71,54 @@
                                     <small class="text-muted">Best size: 250x100px or similar (transparent PNG
                                         recommended).</small>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Favicon</label>
-                                    @if(\App\Models\Setting::get('site_favicon'))
-                                        <div class="mb-2 text-center">
-                                            <img src="{{ asset('storage/' . \App\Models\Setting::get('site_favicon')) }}"
-                                                alt="Favicon" height="32">
-                                        </div>
-                                    @endif
-                                    <input type="file" class="form-control" name="site_favicon">
-                                </div>
-                            </div>
+                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Favicon</label>
+                                        @if(\App\Models\Setting::get('site_favicon'))
+                                            <div class="mb-2 text-center">
+                                                <img src="{{ asset('storage/' . \App\Models\Setting::get('site_favicon')) }}"
+                                                    alt="Favicon" height="32">
+                                            </div>
+                                        @endif
+                                        <input type="file" class="form-control" name="site_favicon">
+                                    </div>
 
-                            <h6 class="mb-4">Contact Information</h6>
-                            <div class="row mb-4">
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Contact Email</label>
-                                    <input type="email" class="form-control" name="site_email"
-                                        value="{{ \App\Models\Setting::get('site_email') }}">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Hero Image (Homepage)</label>
+                                        @if(\App\Models\Setting::get('hero_image'))
+                                            <div class="mb-2 p-2 bg-light rounded border">
+                                                <img src="{{ asset('storage/' . \App\Models\Setting::get('hero_image')) }}"
+                                                    alt="Hero Image" height="100" style="max-width: 100%; object-fit: contain;">
+                                            </div>
+                                        @endif
+                                        <input type="file" class="form-control" name="hero_image">
+                                        <small class="text-muted">Recommended size: 1920x700px. If not set, default image
+                                            will be used.</small>
+                                    </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Contact Phone</label>
-                                    <input type="text" class="form-control" name="site_phone"
-                                        value="{{ \App\Models\Setting::get('site_phone') }}">
-                                </div>
-                                <div class="col-md-12 mb-3">
-                                    <label class="form-label">Address</label>
-                                    <textarea class="form-control" name="site_address"
-                                        rows="2">{{ \App\Models\Setting::get('site_address') }}</textarea>
-                                </div>
-                            </div>
 
-                            <div class="text-end">
-                                <button type="submit" class="btn btn-primary">Save Changes</button>
-                            </div>
+                                <h6 class="mb-4">Contact Information</h6>
+                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Contact Email</label>
+                                        <input type="email" class="form-control" name="site_email"
+                                            value="{{ \App\Models\Setting::get('site_email') }}">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Contact Phone</label>
+                                        <input type="text" class="form-control" name="site_phone"
+                                            value="{{ \App\Models\Setting::get('site_phone') }}">
+                                    </div>
+                                    <div class="col-md-12 mb-3">
+                                        <label class="form-label">Address</label>
+                                        <textarea class="form-control" name="site_address"
+                                            rows="2">{{ \App\Models\Setting::get('site_address') }}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="text-end">
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                </div>
                         </form>
                     </div>
                 </div>

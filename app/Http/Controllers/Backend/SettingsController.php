@@ -19,6 +19,7 @@ class SettingsController extends Controller
             'site_logo_dark' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'site_favicon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'logo_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'hero_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5120', // Increased max size for hero
             'site_title' => 'required|string|max:255',
             'site_description' => 'nullable|string',
             'site_email' => 'nullable|email',
@@ -28,12 +29,17 @@ class SettingsController extends Controller
             'logo_text' => 'nullable|string',
         ]);
 
-        $settings = $request->except(['_token', 'site_logo_light', 'site_logo_dark', 'site_favicon', 'logo_image']);
+        $settings = $request->except(['_token', 'site_logo_light', 'site_logo_dark', 'site_favicon', 'logo_image', 'hero_image']);
 
         // Handle file uploads
         if ($request->hasFile('logo_image')) {
             $path = $request->file('logo_image')->store('settings', 'public');
             \App\Models\Setting::set('logo_image', $path);
+        }
+
+        if ($request->hasFile('hero_image')) {
+            $path = $request->file('hero_image')->store('settings', 'public');
+            \App\Models\Setting::set('hero_image', $path);
         }
 
         // Handle file uploads
