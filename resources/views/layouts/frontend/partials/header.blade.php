@@ -366,57 +366,112 @@
             padding-left: 25px !important;
         }
 
-        /* ===== MOBILE MENU (SLICKNAV) ===== */
+        /* ===== PREMIUM MOBILE MENU STYLING ===== */
         .slicknav_menu {
-            background: #111 !important;
-            padding: 10px 0 !important;
+            display: block !important;
+            background: transparent !important;
+            padding: 0 !important;
             margin: 0 !important;
         }
 
+        /* Modern Toggle Button */
         .slicknav_btn {
             background: #F7941D !important;
-            margin: 0 15px !important;
+            border-radius: 6px;
+            width: 38px !important;
+            height: 38px !important;
+            padding: 0 !important;
+            display: flex !important;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            margin: 0 !important;
+            float: right !important;
+            border: none;
         }
 
-        .slicknav_menu .slicknav_icon-bar {
+        .slicknav_btn:hover {
+            background: #e68a1a !important;
+        }
+
+        /* Proper 3-Bar Hamburger Icon */
+        .slicknav_icon {
+            width: 18px;
+            height: 12px;
+            display: flex !important;
+            flex-direction: column;
+            justify-content: space-between;
+            margin: 0 !important;
+            position: relative;
+        }
+
+        .slicknav_icon-bar {
             background-color: #fff !important;
+            height: 2px !important;
+            width: 100% !important;
+            display: block !important;
+            border-radius: 2px !important;
+            transition: all 0.3s ease;
+            margin: 0 !important;
         }
 
+        /* Mobile Nav Dropdown */
         .slicknav_nav {
             background: #111 !important;
-            margin: 10px 0 0 0 !important;
-            padding: 0 15px !important;
+            border-radius: 8px;
+            margin-top: 15px !important;
+            padding: 5px 0 !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid #222;
+            position: absolute;
+            left: 15px;
+            right: 15px;
+            z-index: 9999;
+            list-style: none;
         }
 
         .slicknav_nav li {
             margin: 0 !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            /* Subtle divider */
+        }
+
+        .slicknav_nav li:last-child {
+            border-bottom: none !important;
         }
 
         .slicknav_nav li a {
-            color: #fff !important;
-            font-weight: 600 !important;
-            padding: 12px 0 !important;
-            border-bottom: 1px solid #222;
+            color: #eee !important;
+            font-weight: 500 !important;
+            font-size: 15px !important;
+            padding: 14px 20px !important;
+            /* Added space */
+            display: flex !important;
+            justify-content: space-between;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.2s ease;
         }
 
         .slicknav_nav li a:hover {
+            background: #222 !important;
             color: #F7941D !important;
-            background: transparent !important;
+            padding-left: 25px !important;
         }
 
-        .slicknav_nav .slicknav_arrow {
+        /* Arrow Styling */
+        .slicknav_arrow {
+            font-size: 12px !important;
             color: #F7941D !important;
         }
 
-
-
-        /* Remove container padding on mobile for navbar */
+        /* Media Queries for Mobile Alignment */
         @media (max-width: 991px) {
-
-            /* Keep middle header but adjust padding */
             .middle-inner {
-                padding: 8px 0 !important;
+                padding: 15px 0 !important;
                 background: #000 !important;
+                /* Matches topbar as seen in screenshot */
             }
 
             .middle-inner .container {
@@ -424,54 +479,47 @@
                 padding-right: 15px !important;
             }
 
-            /* Show logo on mobile */
+            /* The core fix: Align logo and toggle in one row */
+            .middle-inner .row {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                flex-wrap: nowrap !important;
+            }
+
+            /* Make the logo container and mobile-nav sit on the same line */
+            .middle-inner .col-lg-2.col-md-3.col-12 {
+                display: flex !important;
+                flex-direction: row !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                flex: 0 0 100% !important;
+                padding: 0 15px !important;
+            }
+
             .middle-inner .logo {
-                display: block !important;
+                margin: 0 !important;
+                flex: 0 0 auto !important;
             }
 
             .middle-inner .logo h2 {
                 font-size: 22px !important;
                 color: #fff !important;
-            }
-
-            .middle-inner .logo h2 span {
-                color: #F7941D !important;
-            }
-
-            .middle-inner .logo img {
-                max-height: 40px !important;
-            }
-
-            .header-inner .container {
-                padding-left: 0 !important;
-                padding-right: 0 !important;
-            }
-
-            .header-inner,
-            .header-inner .cat-nav-head,
-            .header-inner .menu-area,
-            .header-inner .navbar {
                 margin: 0 !important;
-                padding: 0 !important;
-            }
-
-            .header-inner .row {
-                margin: 0 !important;
-            }
-
-            .header-inner .col-12 {
-                padding: 0 !important;
-            }
-
-            /* Ensure slicknav has no extra spacing */
-            .slicknav_menu {
-                margin: 0 !important;
-                padding: 0 !important;
             }
 
             .mobile-nav {
+                display: block !important;
+                flex: 0 0 auto !important;
                 margin: 0 !important;
-                padding: 0 !important;
+                width: auto !important;
+            }
+
+            /* Hide Desktop Nav Bar */
+            .header-inner {
+                display: none !important;
             }
         }
     </style>
