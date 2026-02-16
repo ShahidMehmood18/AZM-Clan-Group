@@ -286,7 +286,7 @@
 <script src="{{asset('backend/assets/vendors/js/vendors.min.js') }}"></script>
 <!-- vendors.min.js {always must need to be top} -->
 <script src="{{asset('backend/assets/vendors/js/daterangepicker.min.js') }}"></script>
-<script src="{{asset('backend/assets/vendors/js/apexcharts.min.js') }}"></script>
+<!-- <script src="{{asset('backend/assets/vendors/js/apexcharts.min.js') }}"></script> -->
 <script src="{{asset('backend/assets/vendors/js/circle-progress.min.js') }}"></script>
 <!--! END: Vendors JS !-->
 <script src="{{asset('backend/assets/vendors/js/dataTables.min.js') }}"></script>

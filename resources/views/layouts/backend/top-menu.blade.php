@@ -2258,48 +2258,54 @@
                 <div class="dropdown nxl-h-item">
                     <a href="javascript:void(0);" data-bs-toggle="dropdown" role="button" data-bs-auto-close="outside">
                         @if(Auth::user()->avatar)
-                            <img src="{{ asset('storage/' . Auth::user()->avatar) }}" alt="user-image" class="img-fluid user-avtar me-0" style="object-fit: cover; width: 40px; height: 40px;" />
+                            <img src="{{ asset(Auth::user()->avatar) }}" alt="user-image" class="img-fluid user-avtar me-0"
+                                style="object-fit: cover; width: 40px; height: 40px;" />
                         @else
-                                <div class="user-avtar me-0 d-flex align-items-center justify-content-center bg-soft-primary text-primary fw-bold" style="width: 40px; height: 40px; border-radius: 50%;">
-                                    {{ substr(Auth::user()->name, 0, 1) }}
-                                </div>
-                            @endif
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end nxl-h-dropdown nxl-user-dropdown">
-                            <div class="dropdown-header">
-                                <div class="d-flex align-items-center">
-                                    @if(Auth::user()->avatar)
-                                        <img src="{{ asset('storage/' . Auth::user()->avatar) }}" alt="user-image" class="img-fluid user-avtar" style="object-fit: cover; width: 40px; height: 40px;" />
-                                    @else
-                                        <div class="user-avtar d-flex align-items-center justify-content-center bg-soft-primary text-primary fw-bold" style="width: 40px; height: 40px; border-radius: 50%;">
-                                            {{ substr(Auth::user()->name, 0, 1) }}
-                                        </div>
-                                    @endif
-                                    <div>
-                                        <h6 class="text-dark mb-0">{{ Auth::user()->name }}</h6>
-                                        <span class="fs-12 fw-medium text-muted">{{ Auth::user()->email }}</span>
+                            <div class="user-avtar me-0 d-flex align-items-center justify-content-center bg-soft-primary text-primary fw-bold"
+                                style="width: 40px; height: 40px; border-radius: 50%;">
+                                {{ substr(Auth::user()->name, 0, 1) }}
+                            </div>
+                        @endif
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end nxl-h-dropdown nxl-user-dropdown">
+                        <div class="dropdown-header">
+                            <div class="d-flex align-items-center">
+                                @if(Auth::user()->avatar)
+                                    <img src="{{ asset(Auth::user()->avatar) }}" alt="user-image"
+                                        class="img-fluid user-avtar"
+                                        style="object-fit: cover; width: 40px; height: 40px;" />
+                                @else
+                                    <div class="user-avtar d-flex align-items-center justify-content-center bg-soft-primary text-primary fw-bold"
+                                        style="width: 40px; height: 40px; border-radius: 50%;">
+                                        {{ substr(Auth::user()->name, 0, 1) }}
                                     </div>
+                                @endif
+                                <div>
+                                    <h6 class="text-dark mb-0">{{ Auth::user()->name }}</h6>
+                                    <span class="fs-12 fw-medium text-muted">{{ Auth::user()->email }}</span>
                                 </div>
                             </div>
-                            
-                            <div class="dropdown-divider"></div>
-                            
-                            <a href="{{ route('profile.edit') }}" class="dropdown-item">
-                                <i class="feather-user"></i>
-                                <span>Profile Details</span>
-                            </a>
-                            
-                            <div class="dropdown-divider"></div>
-                            
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); this.closest('form').submit();">
-                                    <i class="feather-log-out"></i>
-                                    <span>Logout</span>
-                                </a>
-                            </form>
                         </div>
+
+                        <div class="dropdown-divider"></div>
+
+                        <a href="{{ route('profile.edit') }}" class="dropdown-item">
+                            <i class="feather-user"></i>
+                            <span>Profile Details</span>
+                        </a>
+
+                        <div class="dropdown-divider"></div>
+
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <a href="{{ route('logout') }}" class="dropdown-item"
+                                onclick="event.preventDefault(); this.closest('form').submit();">
+                                <i class="feather-log-out"></i>
+                                <span>Logout</span>
+                            </a>
+                        </form>
                     </div>
+                </div>
             </div>
         </div>
         <!--! [End] Header Right !-->

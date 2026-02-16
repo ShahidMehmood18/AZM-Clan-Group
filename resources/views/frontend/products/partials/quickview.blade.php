@@ -20,7 +20,7 @@
             <div class="quickview-slider-active">
                 <div class="single-slider">
                     @if($product->thumbnail)
-                        <img src="{{ asset('storage/' . $product->thumbnail) }}" alt="{{ $product->name }}">
+                        <img src="{{ asset($product->thumbnail) }}" alt="{{ $product->name }}">
                     @else
                         <img src="https://via.placeholder.com/569x528" alt="{{ $product->name }}">
                     @endif
@@ -28,7 +28,7 @@
                 @if($product->images)
                     @foreach($product->images as $image)
                         <div class="single-slider">
-                            <img src="{{ asset('storage/' . $image) }}" alt="{{ $product->name }}">
+                            <img src="{{ asset($image) }}" alt="{{ $product->name }}">
                         </div>
                     @endforeach
                 @endif

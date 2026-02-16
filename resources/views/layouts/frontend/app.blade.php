@@ -16,13 +16,13 @@
     <meta property="og:title" content="{{ \App\Models\Setting::get('meta_title') }}">
     <meta property="og:description" content="{{ \App\Models\Setting::get('meta_description') }}">
     @if($og_image = \App\Models\Setting::get('og_image'))
-        <meta property="og:image" content="{{ asset('storage/' . $og_image) }}">
+        <meta property="og:image" content="{{ asset($og_image) }}">
     @endif
     <!-- Title Tag  -->
     <title>@yield('title', \App\Models\Setting::get('site_title', config('app.name', 'AZM CLAN')))</title>
     <!-- Favicon -->
     @if($favicon = \App\Models\Setting::get('site_favicon'))
-        <link rel="icon" type="image/png" href="{{ asset('storage/' . $favicon) }}">
+        <link rel="icon" type="image/png" href="{{ asset($favicon) }}">
     @else
         <link rel="icon" type="image/png" href="{{ asset('frontend/images/favicon.png') }}">
     @endif

@@ -40,8 +40,8 @@
                                         <tr>
                                             <td>
                                                 @if($brand->image)
-                                                    <img src="{{ asset('storage/' . $brand->image) }}" alt="{{ $brand->name }}"
-                                                        width="50" class="rounded">
+                                                    <img src="{{ asset($brand->image) }}" alt="{{ $brand->name }}" width="50"
+                                                        class="rounded">
                                                 @else
                                                     <span class="avatar-text avatar-sm bg-gray-200">No</span>
                                                 @endif

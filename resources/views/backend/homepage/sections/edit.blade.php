@@ -72,7 +72,7 @@
                                             <div class="row">
                                                 <div class="col-md-3">
                                                     @if($card->image)
-                                                        <img src="{{ str_contains($card->image, 'http') ? $card->image : asset('storage/' . $card->image) }}"
+                                                        <img src="{{ str_contains($card->image, 'http') ? $card->image : asset($card->image) }}"
                                                             class="img-fluid rounded" alt="Card Image">
                                                     @else
                                                         <div class="bg-light d-flex align-items-center justify-content-center rounded"

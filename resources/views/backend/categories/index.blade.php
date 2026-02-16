@@ -40,7 +40,7 @@
                                         <tr>
                                             <td>
                                                 @if($category->image)
-                                                    <img src="{{ asset('storage/' . $category->image) }}"
+                                                    <img src="{{ asset($category->image) }}"
                                                         alt="{{ $category->name }}" width="50" class="rounded">
                                                 @else
                                                     <span class="avatar-text avatar-sm bg-gray-200">No</span>

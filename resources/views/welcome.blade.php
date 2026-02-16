@@ -380,7 +380,7 @@
 	<section class="hero-slider">
 		<!-- Static Hero (No Slider) -->
 		<div class="single-slider"
-			style="background-image:url('{{ \App\Models\Setting::get('hero_image') ? asset('storage/' . \App\Models\Setting::get('hero_image')) : asset('wholesale_hero_1.png') }}');">
+			style="background-image:url('{{ \App\Models\Setting::get('hero_image') ? asset(\App\Models\Setting::get('hero_image')) : asset('wholesale_hero_1.png') }}');">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12 col-12">
@@ -411,12 +411,12 @@
 					<div class="product-info">
 						<!-- <div class="nav-main">
 
-											<ul class="nav nav-tabs" id="myTab" role="tablist">
-												<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#all" role="tab">All
-														Products</a></li>
-											</ul>
+															<ul class="nav nav-tabs" id="myTab" role="tablist">
+																<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#all" role="tab">All
+																		Products</a></li>
+															</ul>
 
-										</div> -->
+														</div> -->
 						<div class="tab-content" id="myTabContent">
 							<!-- Start Single Tab -->
 							<div class="tab-pane fade show active" id="all" role="tabpanel">
@@ -428,8 +428,7 @@
 													<div class="product-img">
 														<a href="{{ route('products.show', $product->slug) }}">
 															@if($product->thumbnail)
-																<img class="default-img"
-																	src="{{ asset('storage/' . $product->thumbnail) }}"
+																<img class="default-img" src="{{ asset($product->thumbnail) }}"
 																	alt="{{ $product->name }}">
 															@else
 																<img class="default-img" src="https://via.placeholder.com/550x750"
@@ -500,7 +499,7 @@
 						<div class="col-lg-6 col-md-12 col-12 mb-4">
 							<div class="wholesale-card d-flex flex-column flex-lg-row align-items-center">
 								<div class="card-image w-100 w-lg-50"
-									style="background-image: url('{{ $card->image ? (str_contains($card->image, 'http') ? $card->image : asset('storage/' . $card->image)) : asset('wholesale_hero_1.png') }}'); min-height: 200px;">
+									style="background-image: url('{{ $card->image ? (str_contains($card->image, 'http') ? $card->image : asset($card->image)) : asset('wholesale_hero_1.png') }}'); min-height: 200px;">
 								</div>
 								<div class="card-text w-100 w-lg-50 p-4">
 									<h3>{{ $card->heading }}</h3>
@@ -534,7 +533,7 @@
 								<div class="product-img">
 									<a href="{{ route('products.show', $product->slug) }}">
 										@if($product->thumbnail)
-											<img class="default-img" src="{{ asset('storage/' . $product->thumbnail) }}"
+											<img class="default-img" src="{{ asset($product->thumbnail) }}"
 												alt="{{ $product->name }}">
 										@else
 											<img class="default-img" src="https://via.placeholder.com/550x750"
@@ -587,7 +586,7 @@
 						<div class="col-lg-6 col-12">
 							<div class="feature-card d-flex flex-column flex-md-row align-items-center">
 								<div class="card-image w-100 w-md-35"
-									style="background-image: url('{{ $card->image ? (str_contains($card->image, 'http') ? $card->image : asset('storage/' . $card->image)) : asset('wholesale_hero_1.png') }}'); min-height: 150px;">
+									style="background-image: url('{{ $card->image ? (str_contains($card->image, 'http') ? $card->image : asset($card->image)) : asset('wholesale_hero_1.png') }}'); min-height: 150px;">
 								</div>
 								<div class="card-text w-100 w-md-65 p-3">
 									<h4>{{ $card->heading }}</h4>
@@ -647,24 +646,24 @@
 
 	<!-- Start Shop Newsletter  -->
 	<!-- <section class="shop-newsletter section">
-																									<div class="container">
-																										<div class="inner-top">
-																											<div class="row">
-																												<div class="col-lg-8 offset-lg-2 col-12">
+																													<div class="container">
+																														<div class="inner-top">
+																															<div class="row">
+																																<div class="col-lg-8 offset-lg-2 col-12">
 
-																													<div class="inner">
-																														<h4>Newsletter</h4>
-																														<p> Subscribe to our newsletter and get <span>10%</span> off your first purchase</p>
-																														<form action="#" method="get" target="_blank" class="newsletter-inner">
-																															<input name="EMAIL" placeholder="Your email address" required="" type="email">
-																															<button class="btn">Subscribe</button>
-																														</form>
+																																	<div class="inner">
+																																		<h4>Newsletter</h4>
+																																		<p> Subscribe to our newsletter and get <span>10%</span> off your first purchase</p>
+																																		<form action="#" method="get" target="_blank" class="newsletter-inner">
+																																			<input name="EMAIL" placeholder="Your email address" required="" type="email">
+																																			<button class="btn">Subscribe</button>
+																																		</form>
+																																	</div>
+
+																																</div>
+																															</div>
+																														</div>
 																													</div>
-
-																												</div>
-																											</div>
-																										</div>
-																									</div>
-																								</section> -->
+																												</section> -->
 	<!-- End Shop Newsletter -->
 @endsection

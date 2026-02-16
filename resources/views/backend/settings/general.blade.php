@@ -63,8 +63,8 @@
                                     <label class="form-label">Logo Image</label>
                                     @if(\App\Models\Setting::get('logo_image'))
                                         <div class="mb-2 p-2 bg-light rounded border">
-                                            <img src="{{ asset('storage/' . \App\Models\Setting::get('logo_image')) }}"
-                                                alt="Logo" height="50">
+                                            <img src="{{ asset(\App\Models\Setting::get('logo_image')) }}" alt="Logo"
+                                                height="50">
                                         </div>
                                     @endif
                                     <input type="file" class="form-control" name="logo_image">
@@ -76,8 +76,8 @@
                                         <label class="form-label">Favicon</label>
                                         @if(\App\Models\Setting::get('site_favicon'))
                                             <div class="mb-2 text-center">
-                                                <img src="{{ asset('storage/' . \App\Models\Setting::get('site_favicon')) }}"
-                                                    alt="Favicon" height="32">
+                                                <img src="{{ asset(\App\Models\Setting::get('site_favicon')) }}" alt="Favicon"
+                                                    height="32">
                                             </div>
                                         @endif
                                         <input type="file" class="form-control" name="site_favicon">
@@ -87,8 +87,8 @@
                                         <label class="form-label">Hero Image (Homepage)</label>
                                         @if(\App\Models\Setting::get('hero_image'))
                                             <div class="mb-2 p-2 bg-light rounded border">
-                                                <img src="{{ asset('storage/' . \App\Models\Setting::get('hero_image')) }}"
-                                                    alt="Hero Image" height="100" style="max-width: 100%; object-fit: contain;">
+                                                <img src="{{ asset(\App\Models\Setting::get('hero_image')) }}" alt="Hero Image"
+                                                    height="100" style="max-width: 100%; object-fit: contain;">
                                             </div>
                                         @endif
                                         <input type="file" class="form-control" name="hero_image">

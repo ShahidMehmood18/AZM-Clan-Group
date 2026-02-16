@@ -53,7 +53,7 @@
                                     <label class="form-label">OpenGraph Image (Social Share)</label>
                                     @if(\App\Models\Setting::get('og_image'))
                                         <div class="mb-2">
-                                            <img src="{{ asset('storage/' . \App\Models\Setting::get('og_image')) }}"
+                                            <img src="{{ asset(\App\Models\Setting::get('og_image')) }}"
                                                 alt="Social Share Image" class="img-fluid rounded" style="max-height: 200px">
                                         </div>
                                     @endif

@@ -29,7 +29,8 @@
                     <div class="card-body">
                         <div class="p-3 bg-light rounded mb-4">
                             <p style="white-space: pre-line; line-height: 1.6;">
-                                {{ $inquiry->message ?: 'No message provided.' }}</p>
+                                {{ $inquiry->message ?: 'No message provided.' }}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -75,8 +76,7 @@
                     </div>
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-3">
-                            <img src="{{ asset('storage/' . $inquiry->product->thumbnail) }}" alt="" width="60"
-                                class="rounded me-3">
+                            <img src="{{ asset($inquiry->product->thumbnail) }}" alt="" width="60" class="rounded me-3">
                             <div>
                                 <h6 class="mb-0">{{ $inquiry->product->name }}</h6>
                                 <small class="text-muted">Qty: {{ $inquiry->quantity }} units</small>

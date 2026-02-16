@@ -109,7 +109,7 @@
                                         <div class="product-img">
                                             <a href="{{ route('products.show', $product->slug) }}">
                                                 @if($product->thumbnail)
-                                                    <img src="{{ asset('storage/' . $product->thumbnail) }}" alt="{{ $product->name }}">
+                                                    <img src="{{ asset($product->thumbnail) }}" alt="{{ $product->name }}">
                                                 @else
                                                     <img src="https://via.placeholder.com/550x750" alt="{{ $product->name }}">
                                                 @endif
@@ -139,8 +139,7 @@
                                                 <div class="product-img">
                                                     <a href="{{ route('products.show', $product->slug) }}">
                                                         @if($product->thumbnail)
-                                                            <img src="{{ asset('storage/' . $product->thumbnail) }}"
-                                                                alt="{{ $product->name }}">
+                                                            <img src="{{ asset($product->thumbnail) }}" alt="{{ $product->name }}">
                                                         @else
                                                             <img src="https://via.placeholder.com/550x750" alt="{{ $product->name }}">
                                                         @endif

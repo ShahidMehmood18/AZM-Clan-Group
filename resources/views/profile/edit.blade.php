@@ -34,8 +34,8 @@
                                 <label class="form-label">Profile Image</label>
                                 <div class="d-flex align-items-center gap-3">
                                     @if($user->avatar)
-                                        <img src="{{ asset('storage/' . $user->avatar) }}" alt="Profile" class="rounded-circle"
-                                            width="60" height="60" style="object-fit: cover">
+                                        <img src="{{ asset($user->avatar) }}" alt="Profile" class="rounded-circle" width="60"
+                                            height="60" style="object-fit: cover">
                                     @else
                                         <div class="rounded-circle bg-light d-flex align-items-center justify-content-center text-secondary"
                                             style="width: 60px; height: 60px;">

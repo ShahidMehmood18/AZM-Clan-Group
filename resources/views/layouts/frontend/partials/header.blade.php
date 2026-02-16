@@ -30,8 +30,7 @@
                     <div class="logo">
                         <a href="{{ url('/') }}">
                             @if(\App\Models\Setting::get('logo_type', 'text') == 'image')
-                                <img src="{{ asset('storage/' . \App\Models\Setting::get('logo_image', 'logo.png')) }}"
-                                    alt="logo">
+                                <img src="{{ asset(\App\Models\Setting::get('logo_image', 'logo.png')) }}" alt="logo">
                             @else
                                 <h2>
                                     {!! \App\Models\Setting::get('logo_text', 'AZM<span style="color: #F7941D;"> CLAN</span>') !!}

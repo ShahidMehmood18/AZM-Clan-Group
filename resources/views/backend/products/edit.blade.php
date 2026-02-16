@@ -90,8 +90,8 @@
                                     <label for="thumbnail" class="form-label">Thumbnail</label>
                                     @if($product->thumbnail)
                                         <div class="mb-2">
-                                            <img src="{{ asset('storage/' . $product->thumbnail) }}" alt="Current Thumbnail"
-                                                width="100" class="rounded">
+                                            <img src="{{ asset($product->thumbnail) }}" alt="Current Thumbnail" width="100"
+                                                class="rounded">
                                         </div>
                                     @endif
                                     <input type="file" class="form-control @error('thumbnail') is-invalid @enderror"
@@ -107,8 +107,8 @@
                                             @foreach($product->images as $index => $image)
                                                 <div class="position-relative" data-image-index="{{ $index }}"
                                                     style="display: inline-block;">
-                                                    <img src="{{ asset('storage/' . $image) }}" alt="Gallery Image" width="80"
-                                                        height="80" class="rounded" style="object-fit: cover;">
+                                                    <img src="{{ asset($image) }}" alt="Gallery Image" width="80" height="80"
+                                                        class="rounded" style="object-fit: cover;">
                                                     <button type="button"
                                                         class="btn btn-danger btn-sm position-absolute top-0 end-0 delete-existing-image"
                                                         data-product-id="{{ $product->id }}" data-image-index="{{ $index }}"
@@ -184,9 +184,9 @@
                 const newItem = document.createElement('div');
                 newItem.className = 'input-group mb-2';
                 newItem.innerHTML = `
-                            <input type="file" class="form-control" name="images[]">
-                            <button type="button" class="btn btn-danger remove-image">×</button>
-                        `;
+                                <input type="file" class="form-control" name="images[]">
+                                <button type="button" class="btn btn-danger remove-image">×</button>
+                            `;
                 container.appendChild(newItem);
             });
 

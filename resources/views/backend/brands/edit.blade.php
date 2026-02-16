@@ -36,7 +36,7 @@
                                     <label for="image" class="form-label">Image</label>
                                     @if($brand->image)
                                         <div class="mb-2">
-                                            <img src="{{ asset('storage/' . $brand->image) }}" alt="Current Image" width="100"
+                                            <img src="{{ asset($brand->image) }}" alt="Current Image" width="100"
                                                 class="rounded">
                                         </div>
                                     @endif
