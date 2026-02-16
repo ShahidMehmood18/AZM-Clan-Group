@@ -1,5 +1,5 @@
 <!-- [ Footer ] start -->
-<footer class="footer">
+{{-- <footer class="footer">
     <p class="fs-11 text-muted fw-medium text-uppercase mb-0 copyright">
         <span>Copyright ©</span>
         <script>
@@ -14,7 +14,7 @@
         <a href="javascript:void(0);" class="fs-11 fw-semibold text-uppercase">Terms</a>
         <a href="javascript:void(0);" class="fs-11 fw-semibold text-uppercase">Privacy</a>
     </div>
-</footer>
+</footer> --}}
 <!-- [ Footer ] end -->
 </main>
 <div class="theme-customizer">
