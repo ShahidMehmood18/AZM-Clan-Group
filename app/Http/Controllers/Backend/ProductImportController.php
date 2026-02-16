@@ -94,8 +94,8 @@ class ProductImportController extends Controller
                     $imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'];
                     $iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($extractionPath));
 
-                    if (!file_exists(storage_path('app/public/products'))) {
-                        mkdir(storage_path('app/public/products'), 0755, true);
+                    if (!file_exists(storage_path('app/public/uploads/products'))) {
+                        mkdir(storage_path('app/public/uploads/products'), 0755, true);
                     }
 
                     foreach ($iterator as $fileInfo) {
@@ -104,7 +104,7 @@ class ProductImportController extends Controller
                             if (in_array($ext, $imageExtensions)) {
                                 // Keep original filename as specified in CSV
                                 $filename = $fileInfo->getFilename();
-                                copy($fileInfo->getPathname(), storage_path('app/public/products/' . $filename));
+                                copy($fileInfo->getPathname(), storage_path('app/public/uploads/products/' . $filename));
                             }
                         }
                     }
@@ -151,7 +151,7 @@ class ProductImportController extends Controller
 
                 // Prefix thumbnail with products/ if it's just a filename (and not a URL)
                 if ($thumbnail && !Str::startsWith($thumbnail, ['http://', 'https://'])) {
-                    $thumbnail = 'products/' . $thumbnail;
+                    $thumbnail = 'uploads/products/' . $thumbnail;
                 }
 
                 // Handle Category
@@ -184,7 +184,7 @@ class ProductImportController extends Controller
                     $rawImages = array_map('trim', explode(',', $imagesString));
                     foreach ($rawImages as $img) {
                         if (!Str::startsWith($img, ['http://', 'https://'])) {
-                            $images[] = 'products/' . $img;
+                            $images[] = 'uploads/products/' . $img;
                         } else {
                             $images[] = $img;
                         }

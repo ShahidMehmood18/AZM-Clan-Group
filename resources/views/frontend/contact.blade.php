@@ -189,11 +189,4 @@
 @endpush
 
 @push('scripts')
-    <!-- Google Map JS -->
-    {{--
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY"></script> --}}
-    {{--
-    <script src="{{ asset('frontend/js/gmap.min.js') }}"></script> --}}
-    {{--
-    <script src="{{ asset('frontend/js/map-script.js') }}"></script> --}}
 @endpush

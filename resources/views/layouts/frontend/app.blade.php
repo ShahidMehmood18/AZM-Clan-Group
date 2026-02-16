@@ -32,29 +32,20 @@
         rel="stylesheet">
 
     <!-- StyleSheet -->
-
     <!-- Bootstrap -->
     <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.css') }}">
     <!-- Magnific Popup -->
     <link rel="stylesheet" href="{{ asset('frontend/css/magnific-popup.min.css') }}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('frontend/css/font-awesome.css') }}">
-    <!-- Fancybox -->
-    <link rel="stylesheet" href="{{ asset('frontend/css/jquery.fancybox.min.css') }}">
     <!-- Themify Icons -->
     <link rel="stylesheet" href="{{ asset('frontend/css/themify-icons.css') }}">
     <!-- Jquery Ui -->
     <link rel="stylesheet" href="{{ asset('frontend/css/jquery-ui.css') }}">
     <!-- Nice Select CSS -->
     <link rel="stylesheet" href="{{ asset('frontend/css/niceselect.css') }}">
-    <!-- Animate CSS -->
-    <link rel="stylesheet" href="{{ asset('frontend/css/animate.css') }}">
-    <!-- Flex Slider CSS -->
-    <link rel="stylesheet" href="{{ asset('frontend/css/flex-slider.min.css') }}">
     <!-- Owl Carousel -->
     <link rel="stylesheet" href="{{ asset('frontend/css/owl-carousel.css') }}">
-    <!-- Slicknav -->
-    <link rel="stylesheet" href="{{ asset('frontend/css/slicknav.min.css') }}">
 
     <!-- Eshop StyleSheet -->
     <link rel="stylesheet" href="{{ asset('frontend/css/reset.css') }}">
@@ -63,8 +54,6 @@
 
     <!-- Color CSS -->
     <link rel="stylesheet" href="{{ asset('frontend/css/color/color1.css') }}">
-
-    <link rel="stylesheet" href="#" id="colors">
 
     @stack('styles')
     <style>
@@ -334,32 +323,14 @@
     <script src="{{ asset('frontend/js/popper.min.js') }}"></script>
     <!-- Bootstrap JS -->
     <script src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
-    <!-- Color JS -->
-    <script src="{{ asset('frontend/js/colors.js') }}"></script>
-    <!-- Slicknav JS -->
-    <script src="{{ asset('frontend/js/slicknav.min.js') }}"></script>
     <!-- Owl Carousel JS -->
     <script src="{{ asset('frontend/js/owl-carousel.js') }}"></script>
     <!-- Magnific Popup JS -->
     <script src="{{ asset('frontend/js/magnific-popup.js') }}"></script>
-    <!-- Fancybox JS -->
-    <script src="{{ asset('frontend/js/facnybox.min.js') }}"></script>
-    <!-- Waypoints JS -->
-    <script src="{{ asset('frontend/js/waypoints.min.js') }}"></script>
-    <!-- Countdown JS -->
-    <script src="{{ asset('frontend/js/finalcountdown.min.js') }}"></script>
     <!-- Nice Select JS -->
     <script src="{{ asset('frontend/js/nicesellect.js') }}"></script>
-    <!-- Ytplayer JS -->
-    <script src="{{ asset('frontend/js/ytplayer.min.js') }}"></script>
-    <!-- Flex Slider JS -->
-    <script src="{{ asset('frontend/js/flex-slider.js') }}"></script>
     <!-- ScrollUp JS -->
     <script src="{{ asset('frontend/js/scrollup.js') }}"></script>
-    <!-- Onepage Nav JS -->
-    <script src="{{ asset('frontend/js/onepage-nav.min.js') }}"></script>
-    <!-- Easing JS -->
-    <script src="{{ asset('frontend/js/easing.js') }}"></script>
     <!-- Active JS -->
     <script src="{{ asset('frontend/js/active.js') }}"></script>
 

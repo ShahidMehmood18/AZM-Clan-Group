@@ -53,12 +53,12 @@ class ProductController extends Controller
             $slug = $slug . '-' . ($count + 1);
         }
 
-        $thumbnailPath = $request->file('thumbnail')->store('products/thumbnails', 'public');
+        $thumbnailPath = $request->file('thumbnail')->store('uploads/products/thumbnails', 'public');
 
         $imagesPaths = [];
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                $imagesPaths[] = $image->store('products/gallery', 'public');
+                $imagesPaths[] = $image->store('uploads/products/gallery', 'public');
             }
         }
 
@@ -129,14 +129,14 @@ class ProductController extends Controller
             if ($thumbnailPath && Storage::disk('public')->exists($thumbnailPath)) {
                 Storage::disk('public')->delete($thumbnailPath);
             }
-            $thumbnailPath = $request->file('thumbnail')->store('products/thumbnails', 'public');
+            $thumbnailPath = $request->file('thumbnail')->store('uploads/products/thumbnails', 'public');
         }
 
         $imagesPaths = $product->images ?? [];
         if ($request->hasFile('images')) {
             // For now, let's append. If implementing full management, we'd need separate delete route for images.
             foreach ($request->file('images') as $image) {
-                $imagesPaths[] = $image->store('products/gallery', 'public');
+                $imagesPaths[] = $image->store('uploads/products/gallery', 'public');
             }
         }
 
