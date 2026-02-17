@@ -198,6 +198,32 @@ Version:1.0
 		});
 
 		/*===========================
+		  Category Slider JS
+		=============================*/
+		$('.category-slider').owlCarousel({
+			autoplay: false,
+			smartSpeed: 400,
+			loop: true,
+			nav: true,
+			dots: false,
+			navText: ['<i class="ti-angle-left"></i>', '<i class="ti-angle-right"></i>'],
+			responsive: {
+				0: {
+					items: 2,
+				},
+				480: {
+					items: 3,
+				},
+				768: {
+					items: 4,
+				},
+				1170: {
+					items: 5,
+				},
+			}
+		});
+
+		/*===========================
 		  Quick View Slider JS
 		=============================*/
 		$('.quickview-slider-active').owlCarousel({

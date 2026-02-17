@@ -1,12 +1,12 @@
 <?php
 
-if (!function_exists('product_image_url')) {
+if (!function_exists('image_url')) {
     /**
-     * Return the correct image URL for a product image path.
+     * Return the correct image URL for a stored image path.
      * If the path is already an absolute URL (http/https), return it as-is.
-     * Otherwise, treat it as a local storage path and use asset().
+     * Otherwise, treat it as a local path and use asset().
      */
-    function product_image_url(?string $path, string $placeholder = 'https://via.placeholder.com/550x750'): string
+    function image_url(?string $path, string $placeholder = 'https://via.placeholder.com/550x750'): string
     {
         if (empty($path)) {
             return $placeholder;
@@ -17,5 +17,15 @@ if (!function_exists('product_image_url')) {
         }
 
         return asset($path);
+    }
+}
+
+if (!function_exists('product_image_url')) {
+    /**
+     * Alias for image_url() — backward compatibility.
+     */
+    function product_image_url(?string $path, string $placeholder = 'https://via.placeholder.com/550x750'): string
+    {
+        return image_url($path, $placeholder);
     }
 }

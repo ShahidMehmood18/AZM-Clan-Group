@@ -25,16 +25,16 @@
                 <div class="card stretch stretch-full">
                     <div class="card-body p-0">
                         <div class="table-responsive">
-                            <table class="table table-hover mb-0">
+                            <table class="table table-hover mb-0" style="table-layout: fixed; width: 100%;">
                                 <thead>
                                     <tr>
-                                        <th>Thumbnail</th>
+                                        <th style="width: 70px;">Thumbnail</th>
                                         <th>Name</th>
-                                        <th>Category</th>
-                                        <th>Brand</th>
-                                        <th>Price</th>
-                                        <th>Status</th>
-                                        <th class="text-end">Actions</th>
+                                        <th style="width: 130px;">Category</th>
+                                        <th style="width: 120px;">Brand</th>
+                                        <th style="width: 90px;">Price</th>
+                                        <th style="width: 140px;">Status</th>
+                                        <th style="width: 100px;" class="text-end">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -42,9 +42,9 @@
                                         <tr>
                                             <td>
                                                 <img src="{{ product_image_url($product->thumbnail, 'https://via.placeholder.com/50x50') }}"
-                                                    alt="{{ $product->name }}" width="50" class="rounded">
+                                                    alt="{{ $product->name }}" width="70" class="rounded">
                                             </td>
-                                            <td>{{ $product->name }}</td>
+                                            <td style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="{{ $product->name }}">{{ $product->name }}</td>
                                             <td>{{ $product->category->name }}</td>
                                             <td>{{ $product->brand ? $product->brand->name : '-' }}</td>
                                             <td>{{ $product->price }}</td>
@@ -53,6 +53,12 @@
                                                     <span class="badge bg-success">Active</span>
                                                 @else
                                                     <span class="badge bg-danger">Inactive</span>
+                                                @endif
+                                                @if($product->is_trending)
+                                                    <span class="badge bg-info">Trending</span>
+                                                @endif
+                                                @if($product->is_hot)
+                                                    <span class="badge bg-warning">Hot</span>
                                                 @endif
                                             </td>
                                             <td class="text-end">

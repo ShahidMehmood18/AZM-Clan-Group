@@ -276,6 +276,85 @@
 			/* Reduced space below carousel */
 		}
 
+		/* Category Carousel Cards */
+		.category-card {
+			text-align: center;
+			padding: 10px;
+		}
+
+		.category-card a {
+			text-decoration: none;
+			display: block;
+		}
+
+		.category-card-img {
+			aspect-ratio: 1 / 1;
+			border-radius: 12px;
+			overflow: hidden;
+			background: #f8f8f8;
+			transition: transform 0.3s ease, box-shadow 0.3s ease;
+		}
+
+		.category-card a:hover .category-card-img {
+			transform: translateY(-4px);
+			box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+		}
+
+		.category-card-img img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		.category-card-name {
+			font-size: 15px;
+			font-weight: 600;
+			color: #333;
+			margin: 12px 0 0;
+			transition: color 0.2s ease;
+		}
+
+		.category-card a:hover .category-card-name {
+			color: #F7941D;
+		}
+
+		/* Category carousel nav arrows - reuse most-popular positioning */
+		.category-carousel .owl-nav {
+			margin: 0;
+			position: absolute;
+			top: 50%;
+			width: 100%;
+			margin-top: -15px;
+		}
+
+		.category-carousel .owl-carousel .owl-nav div {
+			height: 50px;
+			width: 28px;
+			line-height: 48px;
+			background: #fff;
+			color: #333;
+			position: absolute;
+			margin: 0;
+			border-radius: 0;
+			font-size: 14px;
+			text-align: center;
+			transition: all 0.3s ease;
+			box-shadow: 0 0 10px rgba(51, 51, 51, 0.1);
+		}
+
+		.category-carousel .owl-carousel .owl-nav div:hover {
+			color: #fff;
+			background: #F7941D;
+		}
+
+		.category-carousel .owl-carousel .owl-nav .owl-prev {
+			left: -5px;
+		}
+
+		.category-carousel .owl-carousel .owl-nav .owl-next {
+			right: -5px;
+		}
+
 		/* ===== RESPONSIVE HERO SECTION ===== */
 		@media (max-width: 991px) {
 			.hero-slider .single-slider {
@@ -380,7 +459,7 @@
 	<section class="hero-slider">
 		<!-- Static Hero (No Slider) -->
 		<div class="single-slider"
-			style="background-image:url('{{ \App\Models\Setting::get('hero_image') ? asset(\App\Models\Setting::get('hero_image')) : asset('wholesale_hero_1.png') }}');">
+			style="background-image:url('{{ image_url(\App\Models\Setting::get('hero_image'), asset('wholesale_hero_1.png')) }}');">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12 col-12">
@@ -395,6 +474,44 @@
 		</div>
 	</section>
 	<!--/ End Hero Area -->
+
+	<!-- Start Category Carousel -->
+	@php
+		$carouselCategories = \App\Models\Category::where('is_active', true)
+			->whereNotNull('image')
+			->where('image', '!=', '')
+			->get();
+	@endphp
+	@if($carouselCategories->count())
+		<div class="product-area most-popular category-carousel section" style="background: #fff; padding: 50px 0 30px;">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="section-title" style="margin-bottom: 30px;">
+						<h2>Top Categories</h2>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<div class="owl-carousel category-slider">
+							@foreach($carouselCategories as $cat)
+								<div class="category-card">
+									<a href="{{ route('products.category', $cat->slug) }}">
+										<div class="category-card-img">
+											<img src="{{ image_url($cat->image) }}" alt="{{ $cat->name }}">
+										</div>
+										<h4 class="category-card-name">{{ $cat->name }}</h4>
+									</a>
+								</div>
+							@endforeach
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	@endif
+	<!-- End Category Carousel -->
 
 	<!-- Start Product Area -->
 	<div class="product-area section">
@@ -421,41 +538,10 @@
 							<!-- Start Single Tab -->
 							<div class="tab-pane fade show active" id="all" role="tabpanel">
 								<div class="tab-single">
-									<div class="row">
-										@forelse(\App\Models\Product::where('is_trending', true)->take(6)->get() as $product)
-											<div class="col-xl-4 col-lg-4 col-md-6 col-12">
-												<div class="single-product">
-													<div class="product-img">
-														<a href="{{ route('products.show', $product->slug) }}">
-															<img class="default-img" src="{{ product_image_url($product->thumbnail) }}"
-																	alt="{{ $product->name }}">
-														</a>
-														<div class="button-head">
-															<div class="product-action">
-																<a data-toggle="modal" data-target="#quickViewModal"
-																	title="Quick View" href="javascript:void(0)"
-																	class="quickview-btn" data-id="{{ $product->id }}"><i
-																		class=" ti-eye"></i><span>Quick Shop</span></a>
-															</div>
-														</div>
-													</div>
-													<div class="product-content">
-														<h3><a
-																href="{{ route('products.show', $product->slug) }}">{{ $product->name }}</a>
-														</h3>
-														<div class="product-price">
-															<span>${{ number_format($product->price, 2) }}</span>
-														</div>
-														<div class="inquiry-btn-wrap">
-															<a href="{{ route('products.show', $product->slug) }}"
-																class="btn-card btn-inquiry-primary">Inquiry</a>
-															<a href="javascript:void(0)"
-																class="btn-card btn-quickview-secondary quickview-btn"
-																data-id="{{ $product->id }}" data-toggle="modal"
-																data-target="#quickViewModal">Quick View</a>
-														</div>
-													</div>
-												</div>
+									<div class="row product-grid-5">
+										@forelse(\App\Models\Product::where('is_trending', true)->take(10)->get() as $product)
+											<div class="col-xl col-lg-3 col-md-4 col-6">
+												@include('frontend.products.partials.card', ['product' => $product])
 											</div>
 										@empty
 											<div class="col-12">
@@ -524,29 +610,7 @@
 					<div class="owl-carousel popular-slider">
 						<!-- Start Single Product -->
 						@foreach(\App\Models\Product::where('is_hot', true)->take(10)->get() as $product)
-							<div class="single-product">
-								<div class="product-img">
-									<a href="{{ route('products.show', $product->slug) }}">
-										<img class="default-img" src="{{ product_image_url($product->thumbnail) }}"
-												alt="{{ $product->name }}">
-										<span class="out-of-stock">Hot</span>
-									</a>
-
-								</div>
-								<div class="product-content">
-									<h3><a href="{{ route('products.show', $product->slug) }}">{{ $product->name }}</a></h3>
-									<div class="product-price">
-										<span>${{ number_format($product->price, 2) }}</span>
-									</div>
-									<div class="inquiry-btn-wrap">
-										<a href="{{ route('products.show', $product->slug) }}"
-											class="btn-card btn-inquiry-primary">Inquiry</a>
-										<a href="javascript:void(0)" class="btn-card btn-quickview-secondary quickview-btn"
-											data-id="{{ $product->id }}" data-toggle="modal" data-target="#quickViewModal">Quick
-											View</a>
-									</div>
-								</div>
-							</div>
+							@include('frontend.products.partials.card', ['product' => $product])
 						@endforeach
 						<!-- End Single Product -->
 					</div>

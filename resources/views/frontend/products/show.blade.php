@@ -2,6 +2,250 @@
 
 @section('title', $product->name . ' - ' . config('app.name'))
 
+@push('styles')
+<style>
+    /* ===== Product Detail Page ===== */
+    .pdp-gallery {
+        display: flex;
+        gap: 14px;
+    }
+
+    .pdp-thumbs {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        max-height: 540px;
+        overflow-y: auto;
+        flex-shrink: 0;
+        scrollbar-width: thin;
+        scrollbar-color: #ddd transparent;
+    }
+
+    .pdp-thumbs::-webkit-scrollbar { width: 3px; }
+    .pdp-thumbs::-webkit-scrollbar-thumb { background: #ddd; border-radius: 3px; }
+
+    .pdp-thumb {
+        width: 70px;
+        height: 70px;
+        border: 2px solid #e8e8e8;
+        border-radius: 8px;
+        overflow: hidden;
+        cursor: pointer;
+        flex-shrink: 0;
+        transition: all 0.2s ease;
+        background: #f5f5f5;
+    }
+
+    .pdp-thumb:hover,
+    .pdp-thumb.active {
+        border-color: #F7941D;
+        box-shadow: 0 0 0 1px rgba(247, 148, 29, 0.2);
+    }
+
+    .pdp-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .pdp-main-img {
+        flex: 1;
+        border-radius: 10px;
+        overflow: hidden;
+        background: #f5f5f5;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .pdp-main-img img {
+        width: 100%;
+        height: 540px;
+        object-fit: cover;
+        display: block;
+    }
+
+    /* Right Column */
+    .pdp-title {
+        font-size: 26px;
+        font-weight: 700;
+        color: #1a1a1a;
+        line-height: 1.3;
+        margin: 0 0 20px;
+    }
+
+    .pdp-section-label {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        color: #999;
+        margin-bottom: 6px;
+    }
+
+    .pdp-upc {
+        font-size: 15px;
+        color: #555;
+        line-height: 1.5;
+        margin-bottom: 24px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .pdp-specs {
+        margin-bottom: 24px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .pdp-specs .content {
+        color: #555;
+        line-height: 1.8;
+        font-size: 14px;
+        max-width: 560px;
+    }
+
+    .pdp-specs .content p {
+        margin-bottom: 10px;
+    }
+
+    .pdp-specs .content p:last-child {
+        margin-bottom: 0;
+    }
+
+    /* Meta Card */
+    .pdp-meta {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px 22px;
+        margin-bottom: 24px;
+    }
+
+    .pdp-meta-row {
+        display: flex;
+        align-items: center;
+        padding: 6px 0;
+    }
+
+    .pdp-meta-row + .pdp-meta-row {
+        border-top: 1px solid #eef0f2;
+    }
+
+    .pdp-meta-label {
+        width: 90px;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #999;
+        flex-shrink: 0;
+    }
+
+    .pdp-meta-value {
+        font-size: 14px;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .pdp-price {
+        font-size: 30px;
+        font-weight: 800;
+        color: #F7941D;
+        line-height: 1;
+        padding: 10px 0;
+    }
+
+    .pdp-rating {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 0;
+    }
+
+    .pdp-rating .fa {
+        color: #F7941D;
+        font-size: 16px;
+    }
+
+    .pdp-rating .rating-text {
+        font-size: 13px;
+        color: #888;
+        font-weight: 500;
+    }
+
+    /* CTA */
+    .pdp-cta-btn {
+        display: block;
+        width: 100%;
+        padding: 16px 20px;
+        font-size: 16px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        background: #F7941D;
+        color: #fff !important;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: 0 4px 14px rgba(247, 148, 29, 0.3);
+    }
+
+    .pdp-cta-btn:hover {
+        background: #e68516;
+        box-shadow: 0 6px 20px rgba(247, 148, 29, 0.4);
+        transform: translateY(-1px);
+    }
+
+    .pdp-availability {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 14px;
+        font-size: 13px;
+        color: #666;
+    }
+
+    .pdp-badge {
+        display: inline-block;
+        padding: 4px 14px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+    }
+
+    .pdp-badge-success {
+        background: #28a745;
+        color: #fff;
+    }
+
+    .pdp-badge-danger {
+        background: #dc3545;
+        color: #fff;
+    }
+
+    /* Responsive */
+    @media (max-width: 991px) {
+        .pdp-gallery { flex-direction: column-reverse; }
+        .pdp-thumbs {
+            flex-direction: row;
+            max-height: none;
+            overflow-x: auto;
+            overflow-y: hidden;
+            gap: 8px;
+        }
+        .pdp-main-img img { height: 400px; }
+        .pdp-title { font-size: 22px; margin-bottom: 16px; }
+    }
+
+    @media (max-width: 576px) {
+        .pdp-main-img img { height: 300px; }
+        .pdp-thumb { width: 56px; height: 56px; }
+        .pdp-title { font-size: 20px; }
+        .pdp-price { font-size: 26px; }
+    }
+</style>
+@endpush
+
 @section('content')
     <!-- Breadcrumbs -->
     <div class="breadcrumbs">
@@ -30,107 +274,89 @@
                 <div class="col-12">
                     <div class="row">
                         <div class="col-lg-6 col-12">
-                            <!-- Product Slider -->
-                            <div class="product-gallery">
-                                <!-- Images slider -->
-                                <div class="flexslider-thumbnails">
-                                    <ul class="slides">
-                                        <li
-                                            data-thumb="{{ product_image_url($product->thumbnail, 'https://via.placeholder.com/570x520') }}">
-                                            <div class="main-img-wrap" style="height: 600px;">
-                                                <img src="{{ product_image_url($product->thumbnail, 'https://via.placeholder.com/570x520') }}"
-                                                    alt="{{ $product->name }}"
-                                                    style="width: 100%; height: 100%; object-fit: cover;">
+                            <!-- Product Gallery -->
+                            @php
+                                $allImages = [];
+                                if ($product->thumbnail) $allImages[] = $product->thumbnail;
+                                if ($product->images) $allImages = array_merge($allImages, $product->images);
+                            @endphp
+                            <div class="pdp-gallery">
+                                <!-- Thumbnail Column -->
+                                @if(count($allImages) > 1)
+                                    <div class="pdp-thumbs">
+                                        @foreach($allImages as $index => $img)
+                                            <div class="pdp-thumb {{ $index === 0 ? 'active' : '' }}"
+                                                onclick="changeMainImage(this, '{{ product_image_url($img) }}')">
+                                                <img src="{{ product_image_url($img) }}" alt="{{ $product->name }}">
                                             </div>
-                                        </li>
-                                        @if($product->images)
-                                            @foreach($product->images as $image)
-                                                <li data-thumb="{{ product_image_url($image) }}">
-                                                    <div class="main-img-wrap" style="height: 600px;">
-                                                        <img src="{{ product_image_url($image) }}" alt="{{ $product->name }}"
-                                                            style="width: 100%; height: 100%; object-fit: cover;">
-                                                    </div>
-                                                </li>
-                                            @endforeach
-                                        @endif
-                                    </ul>
+                                        @endforeach
+                                    </div>
+                                @endif
+                                <!-- Main Image -->
+                                <div class="pdp-main-img">
+                                    <img id="main-product-image"
+                                        src="{{ product_image_url($product->thumbnail, 'https://via.placeholder.com/570x520') }}"
+                                        alt="{{ $product->name }}">
                                 </div>
-                                <!-- End Images slider -->
                             </div>
-                            <!-- End Product slider -->
+                            <!-- End Product Gallery -->
                         </div>
                         <div class="col-lg-6 col-12">
                             <div class="product-des">
                                 <div class="short">
-                                    <h4 style="font-size: 28px; margin-bottom: 10px;">{{ $product->name }}</h4>
+                                    <h4 class="pdp-title">{{ $product->name }}</h4>
 
-                                    <div class="short-description mb-4">
-                                        <h6 class="mb-2">Introduction</h6>
-                                        <p>{{ $product->short_description }}</p>
-                                    </div>
-
-                                    <div class="full-description mb-4">
-                                        <h6 class="mb-2">Detailed Specifications</h6>
-                                        <div class="content" style="color: #666; line-height: 1.6;">
-                                            {!! $product->description !!}
+                                    @if($product->short_description)
+                                        <div class="pdp-upc">
+                                            <div class="pdp-section-label">UPC</div>
+                                            <span>{{ $product->short_description }}</span>
                                         </div>
-                                    </div>
+                                    @endif
 
-                                    <div class="product-meta-list"
-                                        style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
-                                        <div class="row">
-                                            <div class="col-12 mb-2">
-                                                <div class="meta-item d-flex align-items-center">
-                                                    <strong class="text-muted small text-uppercase"
-                                                        style="width: 100px;">Brand:</strong>
-                                                    <span
-                                                        class="text-orange font-weight-bold">{{ $product->brand ? $product->brand->name : 'N/A' }}</span>
-                                                </div>
+                                    @if($product->description)
+                                        <div class="pdp-specs">
+                                            <div class="pdp-section-label">Detailed Specifications</div>
+                                            <div class="content">
+                                                {!! $product->description !!}
                                             </div>
-                                            <div class="col-12 mb-3">
-                                                <div class="meta-item d-flex align-items-center">
-                                                    <strong class="text-muted small text-uppercase"
-                                                        style="width: 100px;">Category:</strong>
-                                                    <span
-                                                        class="text-orange font-weight-bold">{{ $product->category->name }}</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 mb-3">
-                                                <h3 class="price"
-                                                    style="font-size: 32px; color: #F7941D; font-weight: 700; margin: 0;">
-                                                    ${{ number_format($product->price, 2) }}
-                                                </h3>
-                                            </div>
-                                            <div class="col-12">
-                                                <div class="rating-main"
-                                                    style="display: flex; align-items: center; gap: 10px;">
-                                                    <ul class="rating" style="margin: 0; padding: 0;">
-                                                        <li><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star-half-o"></i></li>
-                                                    </ul>
-                                                    <span style="color: #666; line-height: 1;">(4.5 Rating)</span>
-                                                </div>
+                                        </div>
+                                    @endif
+
+                                    <div class="pdp-meta">
+                                        <div class="pdp-meta-row">
+                                            <span class="pdp-meta-label">Brand</span>
+                                            <span class="pdp-meta-value">{{ $product->brand ? $product->brand->name : 'N/A' }}</span>
+                                        </div>
+                                        <div class="pdp-meta-row">
+                                            <span class="pdp-meta-label">Category</span>
+                                            <span class="pdp-meta-value">{{ $product->category->name }}</span>
+                                        </div>
+                                        <div class="pdp-meta-row">
+                                            <div class="pdp-price">${{ number_format($product->price, 2) }}</div>
+                                        </div>
+                                        <div class="pdp-meta-row">
+                                            <div class="pdp-rating">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star-half-o"></i>
+                                                <span class="rating-text">4.5 Rating</span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="product-buy">
-                                    <div class="add-to-cart">
-                                        <button type="button" class="btn" data-toggle="modal" data-target="#inquiryModal"
-                                            style="width: 100%; height: 55px; font-size: 18px;">
-                                            Send Inquiry
-                                        </button>
-                                    </div>
-                                    <p class="availability mt-3">
-                                        <strong>Availability:</strong>
-                                        <span class="badge {{ $product->is_active ? 'badge-success' : 'badge-danger' }}">
+                                    <button type="button" class="pdp-cta-btn" data-toggle="modal" data-target="#inquiryModal">
+                                        Send Inquiry
+                                    </button>
+                                    <div class="pdp-availability">
+                                        Availability:
+                                        <span class="pdp-badge {{ $product->is_active ? 'pdp-badge-success' : 'pdp-badge-danger' }}">
                                             {{ $product->is_active ? 'In Stock' : 'Out of Stock' }}
                                         </span>
-                                    </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -259,28 +485,7 @@
                     <div class="owl-carousel popular-slider">
                         <!-- Start Single Product -->
                         @foreach($relatedProducts as $relProduct)
-                            <div class="single-product">
-                                <div class="product-img">
-                                    <a href="{{ route('products.show', $relProduct->slug) }}">
-                                        <img class="default-img" src="{{ product_image_url($relProduct->thumbnail) }}"
-                                            alt="{{ $relProduct->name }}">
-                                    </a>
-
-                                </div>
-                                <div class="product-content">
-                                    <h3><a href="{{ route('products.show', $relProduct->slug) }}">{{ $relProduct->name }}</a>
-                                    </h3>
-                                    <div class="product-price">
-                                        <span>${{ number_format($relProduct->price, 2) }}</span>
-                                    </div>
-                                    <div class="inquiry-btn-wrap">
-                                        <a href="{{ route('products.show', $relProduct->slug) }}"
-                                            class="btn-card btn-inquiry-primary">Inquiry</a>
-                                        <a href="javascript:void(0)" class="btn-card btn-quickview-secondary quickview-btn"
-                                            data-id="{{ $relProduct->id }}">Quick View</a>
-                                    </div>
-                                </div>
-                            </div>
+                            @include('frontend.products.partials.card', ['product' => $relProduct])
                         @endforeach
                         <!-- End Single Product -->
                     </div>
@@ -292,16 +497,13 @@
 @endsection
 
 @push('scripts')
-    <script>     $(document).ready(function () {
-            $('.btn-number').click(function (e) {
-                e.preventDefault();
-                var fieldName = $(this).attr('data-field'); var type = $(this).attr('data-type'); var input = $("input[name='" + fieldName + "']"); var currentVal = parseInt(input.val()); if (!isNaN(currentVal)) { if (type == 'minus') { if (currentVal > input.attr('data-min')) { input.val(currentVal - 1).change(); } if (parseInt(input.val()) == input.attr('data-min')) { $(this).attr('disabled', true); } } else if (type == 'plus') { if (currentVal < input.attr('data-max')) { input.val(currentVal + 1).change(); } if (parseInt(input.val()) == input.attr('data-max')) { $(this).attr('disabled', true); } } } else { input.val(0); }
+    <script>
+        function changeMainImage(thumb, src) {
+            document.getElementById('main-product-image').src = src;
+            document.querySelectorAll('.pdp-thumb').forEach(function(el) {
+                el.classList.remove('active');
             });
-            $('.input-number').focusin(function () { $(this).data('oldValue', $(this).val()); });
-            $('.input-number').change(function () {
-                var minValue = parseInt($(this).attr('data-min')); var maxValue = parseInt($(this).attr('data-max')); var valueCurrent = parseInt($(this).val());
-                var name = $(this).attr('name'); if (valueCurrent >= minValue) { $(".btn-number[data-type='minus'][data-field='" + name + "']").removeAttr('disabled') } else { alert('Sorry, the minimum value was reached'); $(this).val($(this).data('oldValue')); } if (valueCurrent <= maxValue) { $(".btn-number[data-type='plus'][data-field='" + name + "']").removeAttr('disabled') } else { alert('Sorry, the maximum value was reached'); $(this).val($(this).data('oldValue')); }
-            });
-        });
+            thumb.classList.add('active');
+        }
     </script>
 @endpush

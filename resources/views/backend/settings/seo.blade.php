@@ -51,12 +51,14 @@
 
                                 <div class="col-md-12 mb-3">
                                     <label class="form-label">OpenGraph Image (Social Share)</label>
-                                    @if(\App\Models\Setting::get('og_image'))
-                                        <div class="mb-2">
-                                            <img src="{{ asset(\App\Models\Setting::get('og_image')) }}"
+                                    <div class="mb-2 p-3 bg-light rounded border text-center" style="min-height: 100px; display: flex; align-items: center; justify-content: center;">
+                                        @if(\App\Models\Setting::get('og_image'))
+                                            <img src="{{ image_url(\App\Models\Setting::get('og_image')) }}"
                                                 alt="Social Share Image" class="img-fluid rounded" style="max-height: 200px">
-                                        </div>
-                                    @endif
+                                        @else
+                                            <span class="text-muted small">No social share image uploaded</span>
+                                        @endif
+                                    </div>
                                     <input type="file" class="form-control" name="og_image">
                                     <small class="text-muted">Recommended size: 1200x630 pixels</small>
                                 </div>

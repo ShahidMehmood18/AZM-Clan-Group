@@ -42,6 +42,7 @@
                                     @endif
                                     <input type="file" class="form-control @error('image') is-invalid @enderror" id="image"
                                         name="image">
+                                    <small class="text-muted d-block mt-1">Suggested: 400 × 400px, square, clear & centered.</small>
                                     @error('image')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror

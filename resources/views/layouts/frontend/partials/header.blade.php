@@ -30,7 +30,7 @@
                     <div class="logo">
                         <a href="{{ url('/') }}">
                             @if(\App\Models\Setting::get('logo_type', 'text') == 'image')
-                                <img src="{{ asset(\App\Models\Setting::get('logo_image', 'logo.png')) }}" alt="logo">
+                                <img src="{{ image_url(\App\Models\Setting::get('logo_image'), asset('frontend/images/logo.png')) }}" alt="logo">
                             @else
                                 <h2>
                                     {!! \App\Models\Setting::get('logo_text', 'AZM<span style="color: #F7941D;"> CLAN</span>') !!}
@@ -347,23 +347,34 @@
         /* Dropdown */
         .main-menu.menu .dropdown {
             background: #fff;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
             border: none;
             border-radius: 0 0 8px 8px;
-            width: 220px;
+            width: 230px;
+            max-height: 360px;
+            overflow-y: auto;
+            padding: 6px 0;
+            scrollbar-width: thin;
+            scrollbar-color: #ddd transparent;
         }
+
+        .main-menu.menu .dropdown::-webkit-scrollbar { width: 4px; }
+        .main-menu.menu .dropdown::-webkit-scrollbar-track { background: transparent; }
+        .main-menu.menu .dropdown::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
+        .main-menu.menu .dropdown::-webkit-scrollbar-thumb:hover { background: #F7941D; }
 
         .main-menu.menu .dropdown li a {
             color: #333 !important;
             font-weight: 500;
             font-size: 14px;
-            padding: 12px 20px;
+            padding: 10px 18px;
+            transition: all 0.15s ease;
         }
 
         .main-menu.menu .dropdown li a:hover {
             background: #F7941D !important;
             color: #fff !important;
-            padding-left: 25px !important;
+            padding-left: 22px !important;
         }
 
         /* ===== PREMIUM MOBILE MENU STYLING ===== */

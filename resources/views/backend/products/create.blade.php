@@ -66,7 +66,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-md-12 mb-3">
-                                    <label for="short_description" class="form-label">Short Description</label>
+                                    <label for="short_description" class="form-label">UPC</label>
                                     <textarea class="form-control @error('short_description') is-invalid @enderror"
                                         id="short_description" name="short_description"
                                         rows="3">{{ old('short_description') }}</textarea>
