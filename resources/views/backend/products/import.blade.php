@@ -22,22 +22,27 @@
                     <div class="card-body">
                         <div class="alert alert-primary mb-4">
                             <h6 class="alert-heading fw-bold"><i class="feather-info me-2"></i>Instructions</h6>
-                            <p class="mb-0">Use this feature to bulk upload products using a CSV file. </p>
+                            <p class="mb-0">Use this feature to bulk upload products using a CSV file.</p>
                             <hr>
                             <ul class="mb-0 ps-3">
-                                <li class="mb-1"><strong>Mandatory Fields:</strong> Product Name, Thumbnail, and
-                                    Description.</li>
-                                <li class="mb-1"><strong>How to Upload Images:</strong>
+                                <li class="mb-1"><strong>Mandatory Field:</strong> Product Name only. All other fields are optional.</li>
+                                <li class="mb-1"><strong>Column Mapping:</strong> Columns are matched by header name, so column order does not matter.</li>
+                                <li class="mb-1"><strong>Supported Columns:</strong>
+                                    <code>images</code>, <code>brand</code>, <code>name</code>, <code>price1</code>,
+                                    <code>price</code>, <code>description</code>, <code>category</code>,
+                                    <code>short_description</code>, <code>is_active</code>
+                                </li>
+                                <li class="mb-1"><strong>Images:</strong> Enter image URLs separated by semicolons (<code>;</code>).
+                                    The first image becomes the product thumbnail; the rest become the gallery.</li>
+                                <li class="mb-1"><strong>Local Images (ZIP upload):</strong>
                                     <ul>
-                                        <li>Create a folder on your computer.</li>
-                                        <li>Put your <strong>CSV file</strong> and all <strong>Image files</strong> inside
-                                            it.</li>
-                                        <li>Compress (Zip) the folder.</li>
-                                        <li>Upload the <strong>.zip</strong> file below.</li>
+                                        <li>Put your CSV file and all image files inside a folder.</li>
+                                        <li>Compress (Zip) the folder and upload the <code>.zip</code> file below.</li>
+                                        <li>In the CSV, enter just the filename (e.g., <code>product-1.jpg</code>).</li>
                                     </ul>
                                 </li>
-                                <li class="mb-1"><strong>In the CSV:</strong> Just enter the exact <strong>filename</strong>
-                                    (e.g., <code>product-1.jpg</code>) in the <code>thumbnail</code> column.</li>
+                                <li class="mb-1"><strong>Price:</strong> If <code>price</code> is empty, <code>price1</code> will be used as fallback.</li>
+                                <li class="mb-1"><strong>Defaults:</strong> Empty <code>is_active</code> defaults to active. Empty <code>category</code> defaults to "Uncategorized".</li>
                             </ul>
                         </div>
 
@@ -55,7 +60,7 @@
                                 <label for="file" class="form-label">Choose File</label>
                                 <input type="file" class="form-control" id="file" name="file" accept=".csv, .txt, .zip"
                                     required>
-                                <div class="form-text">Supported formats: .csv, .txt, .zip (Max 10MB)</div>
+                                <div class="form-text">Supported formats: .csv, .txt, .zip (Max 20MB)</div>
                                 <small class="text-muted d-block mt-1">Note: If uploading a ZIP, ensure the CSV file is at
                                     the root of the zip archive.</small>
                             </div>

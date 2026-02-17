@@ -27,14 +27,14 @@ class ProductImportController extends Controller
         ];
 
         $columns = [
-            'name',
-            'category',
-            'brand',
-            'price',
-            'short_description',
-            'description',
-            'thumbnail',
             'images',
+            'brand',
+            'name',
+            'price1',
+            'price',
+            'description',
+            'category',
+            'short_description',
             'is_active'
         ];
 
@@ -44,14 +44,14 @@ class ProductImportController extends Controller
 
             // Sample data
             fputcsv($file, [
-                'Sample Product',
-                'Electronics',
+                'https://example.com/img1.jpg;https://example.com/img2.jpg',
                 'Sony',
+                'Sample Product',
+                '249.99',
                 '199.99',
-                'Analysis of product features...',
                 'Full details about the product...',
-                'product-thumb.jpg',
-                'img1.jpg,img2.jpg',
+                'Electronics',
+                'Short product summary',
                 '1'
             ]);
 
@@ -102,7 +102,6 @@ class ProductImportController extends Controller
                         if ($fileInfo->isFile()) {
                             $ext = strtolower($fileInfo->getExtension());
                             if (in_array($ext, $imageExtensions)) {
-                                // Keep original filename as specified in CSV
                                 $filename = $fileInfo->getFilename();
                                 copy($fileInfo->getPathname(), storage_path('app/public/uploads/products/' . $filename));
                             }
@@ -118,78 +117,138 @@ class ProductImportController extends Controller
             DB::beginTransaction();
 
             $handle = fopen($csvPath, 'r');
-            // Skip header row
-            fgetcsv($handle);
+
+            // Read header row and build column index map
+            $headerRow = fgetcsv($handle);
+            if ($headerRow === false) {
+                throw new \Exception("CSV file is empty or unreadable.");
+            }
+
+            $headerMap = [];
+            foreach ($headerRow as $index => $header) {
+                $header = strtolower(trim($header));
+                // Strip UTF-8 BOM from first column
+                if ($index === 0) {
+                    $header = preg_replace('/^\x{FEFF}/u', '', $header);
+                }
+                $headerMap[$header] = $index;
+            }
+
+            // Validate that 'name' column exists
+            if (!isset($headerMap['name'])) {
+                throw new \Exception("CSV must contain a 'name' column header. Found columns: " . implode(', ', array_keys($headerMap)));
+            }
+
+            // Helper to get column value by header name
+            $getCol = function (array $row, string $columnName, $default = null) use ($headerMap) {
+                if (!isset($headerMap[$columnName])) {
+                    return $default;
+                }
+                $value = $row[$headerMap[$columnName]] ?? $default;
+                return ($value === '' || $value === null) ? $default : trim($value);
+            };
+
+            // Preload existing slugs for fast uniqueness checking
+            $existingSlugs = Product::pluck('slug')->flip()->toArray();
 
             $imported = 0;
             $skipped = 0;
 
             while (($row = fgetcsv($handle)) !== false) {
-                // Ensure row has enough columns
-                if (count($row) < 3) {
+                // Skip empty rows
+                if (count($row) < 2 || (count($row) === 1 && empty(trim($row[0])))) {
                     continue;
                 }
 
-                $name = $row[0] ?? null;
-                $categoryName = $row[1] ?? 'Uncategorized';
-                $brandName = $row[2] ?? null;
-                $price = $row[3] ?? 0;
-                $shortDesc = $row[4] ?? null;
-                $description = $row[5] ?? null;
-                $thumbnail = $row[6] ?? null;
-                $imagesString = $row[7] ?? null;
-                $isActive = $row[8] ?? 1;
+                $name = $getCol($row, 'name');
+                $categoryName = $getCol($row, 'category', 'Uncategorized');
+                $brandName = $getCol($row, 'brand');
+                $price = $getCol($row, 'price');
+                $price1 = $getCol($row, 'price1');
+                $shortDesc = $getCol($row, 'short_description');
+                $description = $getCol($row, 'description');
+                $thumbnail = $getCol($row, 'thumbnail');
+                $imagesString = $getCol($row, 'images');
+                $isActive = $getCol($row, 'is_active', 1);
 
-                // Mandatory Check
-                if (empty($name)) { // We allow empty thumbnail/desc if user really wants, but recommended otherwise. User asked for mandatory.
-                    // Strict mandatory check as requested
+                // Strip commas from prices (e.g. "1,319.00" -> "1319.00")
+                if ($price) {
+                    $price = str_replace(',', '', $price);
                 }
-                if (empty($name) || empty($thumbnail) || empty($description)) {
+                if ($price1) {
+                    $price1 = str_replace(',', '', $price1);
+                }
+
+                // Fallback: use price1 if price is empty
+                if ((empty($price) || !is_numeric($price)) && !empty($price1) && is_numeric($price1)) {
+                    $price = $price1;
+                }
+
+                // Only name is mandatory
+                if (empty($name)) {
                     $skipped++;
                     continue;
                 }
 
-                // Prefix thumbnail with products/ if it's just a filename (and not a URL)
-                if ($thumbnail && !Str::startsWith($thumbnail, ['http://', 'https://'])) {
+                // Parse images - support both semicolon and comma separators
+                $images = [];
+                if (!empty($imagesString)) {
+                    $separator = (str_contains($imagesString, ';')) ? ';' : ',';
+                    $rawImages = array_filter(array_map('trim', explode($separator, $imagesString)));
+
+                    foreach ($rawImages as $img) {
+                        if (!empty($img)) {
+                            if (!Str::startsWith($img, ['http://', 'https://'])) {
+                                $images[] = 'uploads/products/' . $img;
+                            } else {
+                                $images[] = $img;
+                            }
+                        }
+                    }
+                }
+
+                // If no explicit thumbnail column, use first image as thumbnail
+                if (empty($thumbnail) && !empty($images)) {
+                    $thumbnail = array_shift($images);
+                } elseif (!empty($thumbnail) && !Str::startsWith($thumbnail, ['http://', 'https://'])) {
                     $thumbnail = 'uploads/products/' . $thumbnail;
                 }
 
                 // Handle Category
+                $categorySlug = Str::slug($categoryName);
+                if (empty($categorySlug)) {
+                    $categorySlug = 'category-' . uniqid();
+                }
                 $category = Category::firstOrCreate(
                     ['name' => $categoryName],
-                    ['slug' => Str::slug($categoryName), 'is_active' => true]
+                    ['slug' => $categorySlug, 'is_active' => true]
                 );
 
                 // Handle Brand
                 $brandId = null;
                 if (!empty($brandName)) {
+                    $brandSlug = Str::slug($brandName);
+                    if (empty($brandSlug)) {
+                        $brandSlug = 'brand-' . uniqid();
+                    }
                     $brand = Brand::firstOrCreate(
                         ['name' => $brandName],
-                        ['slug' => Str::slug($brandName), 'is_active' => true]
+                        ['slug' => $brandSlug, 'is_active' => true]
                     );
                     $brandId = $brand->id;
                 }
 
-                // Generate Unique Slug
+                // Generate unique slug using in-memory lookup
                 $slug = Str::slug($name);
+                if (empty($slug)) {
+                    $slug = 'product-' . uniqid();
+                }
                 $originalSlug = $slug;
                 $count = 1;
-                while (Product::where('slug', $slug)->exists()) {
+                while (isset($existingSlugs[$slug])) {
                     $slug = $originalSlug . '-' . $count++;
                 }
-
-                // Parse Images
-                $images = [];
-                if (!empty($imagesString)) {
-                    $rawImages = array_map('trim', explode(',', $imagesString));
-                    foreach ($rawImages as $img) {
-                        if (!Str::startsWith($img, ['http://', 'https://'])) {
-                            $images[] = 'uploads/products/' . $img;
-                        } else {
-                            $images[] = $img;
-                        }
-                    }
-                }
+                $existingSlugs[$slug] = true;
 
                 // Create Product
                 Product::create([
@@ -197,12 +256,12 @@ class ProductImportController extends Controller
                     'slug' => $slug,
                     'category_id' => $category->id,
                     'brand_id' => $brandId,
-                    'price' => is_numeric($price) ? $price : 0,
+                    'price' => is_numeric($price) ? $price : null,
                     'short_description' => $shortDesc,
                     'description' => $description,
                     'thumbnail' => $thumbnail,
                     'images' => $images,
-                    'is_active' => (bool) $isActive,
+                    'is_active' => ($isActive === null) ? true : (bool) (int) $isActive,
                 ]);
 
                 $imported++;
@@ -216,7 +275,7 @@ class ProductImportController extends Controller
                 File::deleteDirectory($extractionPath);
             }
 
-            return redirect()->back()->with('success', "Imported $imported products successfully. Skipped $skipped rows due to missing mandatory fields.");
+            return redirect()->back()->with('success', "Imported $imported products successfully. Skipped $skipped rows.");
 
         } catch (\Exception $e) {
             DB::rollBack();

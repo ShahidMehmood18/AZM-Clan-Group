@@ -85,7 +85,7 @@
                                 <div class="col-md-6 mb-3">
                                     <label for="thumbnail" class="form-label">Thumbnail</label>
                                     <input type="file" class="form-control @error('thumbnail') is-invalid @enderror"
-                                        id="thumbnail" name="thumbnail" required>
+                                        id="thumbnail" name="thumbnail">
                                     @error('thumbnail')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror

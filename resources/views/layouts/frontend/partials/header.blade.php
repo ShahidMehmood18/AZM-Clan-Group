@@ -122,7 +122,7 @@
                                                     href="javascript:void(0)">All
                                                     Brands<i class="ti-angle-down"></i></a>
                                                 <ul class="dropdown">
-                                                    @foreach(\App\Models\Brand::where('is_active', true)->get() as $headerBrand)
+                                                    @foreach(\App\Models\Brand::where('is_active', true)->whereNotNull('slug')->where('slug', '!=', '')->get() as $headerBrand)
                                                         <li><a
                                                                 href="{{ route('products.brand', $headerBrand->slug) }}">{{ $headerBrand->name }}</a>
                                                         </li>

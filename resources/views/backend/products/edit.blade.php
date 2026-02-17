@@ -88,12 +88,14 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="thumbnail" class="form-label">Thumbnail</label>
-                                    @if($product->thumbnail)
-                                        <div class="mb-2">
-                                            <img src="{{ asset($product->thumbnail) }}" alt="Current Thumbnail" width="100"
+                                    <div class="mb-2">
+                                        @if($product->thumbnail)
+                                            <img src="{{ product_image_url($product->thumbnail) }}" alt="Current Thumbnail" width="100"
                                                 class="rounded">
-                                        </div>
-                                    @endif
+                                        @else
+                                            <span class="text-muted">No thumbnail uploaded</span>
+                                        @endif
+                                    </div>
                                     <input type="file" class="form-control @error('thumbnail') is-invalid @enderror"
                                         id="thumbnail" name="thumbnail">
                                     @error('thumbnail')
@@ -107,7 +109,7 @@
                                             @foreach($product->images as $index => $image)
                                                 <div class="position-relative" data-image-index="{{ $index }}"
                                                     style="display: inline-block;">
-                                                    <img src="{{ asset($image) }}" alt="Gallery Image" width="80" height="80"
+                                                    <img src="{{ product_image_url($image) }}" alt="Gallery Image" width="80" height="80"
                                                         class="rounded" style="object-fit: cover;">
                                                     <button type="button"
                                                         class="btn btn-danger btn-sm position-absolute top-0 end-0 delete-existing-image"

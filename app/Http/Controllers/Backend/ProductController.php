@@ -43,7 +43,7 @@ class ProductController extends Controller
             'short_description' => 'nullable|string',
             'description' => 'nullable|string',
             'price' => 'nullable|numeric',
-            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -53,7 +53,10 @@ class ProductController extends Controller
             $slug = $slug . '-' . ($count + 1);
         }
 
-        $thumbnailPath = $request->file('thumbnail')->store('uploads/products/thumbnails', 'public');
+        $thumbnailPath = null;
+        if ($request->hasFile('thumbnail')) {
+            $thumbnailPath = $request->file('thumbnail')->store('uploads/products/thumbnails', 'public');
+        }
 
         $imagesPaths = [];
         if ($request->hasFile('images')) {

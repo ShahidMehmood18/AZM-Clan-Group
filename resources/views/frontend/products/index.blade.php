@@ -108,11 +108,7 @@
                                     <div class="single-product">
                                         <div class="product-img">
                                             <a href="{{ route('products.show', $product->slug) }}">
-                                                @if($product->thumbnail)
-                                                    <img src="{{ asset($product->thumbnail) }}" alt="{{ $product->name }}">
-                                                @else
-                                                    <img src="https://via.placeholder.com/550x750" alt="{{ $product->name }}">
-                                                @endif
+                                                <img src="{{ product_image_url($product->thumbnail) }}" alt="{{ $product->name }}">
                                             </a>
                                         </div>
                                         <div class="product-content">
@@ -138,11 +134,7 @@
                                             <div class="col-lg-4 col-md-4 col-12 p-0">
                                                 <div class="product-img">
                                                     <a href="{{ route('products.show', $product->slug) }}">
-                                                        @if($product->thumbnail)
-                                                            <img src="{{ asset($product->thumbnail) }}" alt="{{ $product->name }}">
-                                                        @else
-                                                            <img src="https://via.placeholder.com/550x750" alt="{{ $product->name }}">
-                                                        @endif
+                                                        <img src="{{ product_image_url($product->thumbnail) }}" alt="{{ $product->name }}">
                                                     </a>
                                                 </div>
                                             </div>

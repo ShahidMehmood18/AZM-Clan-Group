@@ -76,7 +76,7 @@
                     </div>
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-3">
-                            <img src="{{ asset($inquiry->product->thumbnail) }}" alt="" width="60" class="rounded me-3">
+                            <img src="{{ product_image_url($inquiry->product->thumbnail, 'https://via.placeholder.com/60x60') }}" alt="" width="60" class="rounded me-3">
                             <div>
                                 <h6 class="mb-0">{{ $inquiry->product->name }}</h6>
                                 <small class="text-muted">Qty: {{ $inquiry->quantity }} units</small>

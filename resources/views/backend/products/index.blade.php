@@ -41,7 +41,7 @@
                                     @foreach($products as $product)
                                         <tr>
                                             <td>
-                                                <img src="{{ asset($product->thumbnail) }}"
+                                                <img src="{{ product_image_url($product->thumbnail, 'https://via.placeholder.com/50x50') }}"
                                                     alt="{{ $product->name }}" width="50" class="rounded">
                                             </td>
                                             <td>{{ $product->name }}</td>

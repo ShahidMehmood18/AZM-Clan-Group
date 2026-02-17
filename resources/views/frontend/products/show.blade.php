@@ -36,18 +36,18 @@
                                 <div class="flexslider-thumbnails">
                                     <ul class="slides">
                                         <li
-                                            data-thumb="{{ $product->thumbnail ? asset($product->thumbnail) : 'https://via.placeholder.com/570x520' }}">
+                                            data-thumb="{{ product_image_url($product->thumbnail, 'https://via.placeholder.com/570x520') }}">
                                             <div class="main-img-wrap" style="height: 600px;">
-                                                <img src="{{ $product->thumbnail ? asset($product->thumbnail) : 'https://via.placeholder.com/570x520' }}"
+                                                <img src="{{ product_image_url($product->thumbnail, 'https://via.placeholder.com/570x520') }}"
                                                     alt="{{ $product->name }}"
                                                     style="width: 100%; height: 100%; object-fit: cover;">
                                             </div>
                                         </li>
                                         @if($product->images)
                                             @foreach($product->images as $image)
-                                                <li data-thumb="{{ asset($image) }}">
+                                                <li data-thumb="{{ product_image_url($image) }}">
                                                     <div class="main-img-wrap" style="height: 600px;">
-                                                        <img src="{{ asset($image) }}" alt="{{ $product->name }}"
+                                                        <img src="{{ product_image_url($image) }}" alt="{{ $product->name }}"
                                                             style="width: 100%; height: 100%; object-fit: cover;">
                                                     </div>
                                                 </li>
@@ -262,13 +262,8 @@
                             <div class="single-product">
                                 <div class="product-img">
                                     <a href="{{ route('products.show', $relProduct->slug) }}">
-                                        @if($relProduct->thumbnail)
-                                            <img class="default-img" src="{{ asset($relProduct->thumbnail) }}"
-                                                alt="{{ $relProduct->name }}">
-                                        @else
-                                            <img class="default-img" src="https://via.placeholder.com/550x750"
-                                                alt="{{ $relProduct->name }}">
-                                        @endif
+                                        <img class="default-img" src="{{ product_image_url($relProduct->thumbnail) }}"
+                                            alt="{{ $relProduct->name }}">
                                     </a>
 
                                 </div>

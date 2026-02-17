@@ -427,13 +427,8 @@
 												<div class="single-product">
 													<div class="product-img">
 														<a href="{{ route('products.show', $product->slug) }}">
-															@if($product->thumbnail)
-																<img class="default-img" src="{{ asset($product->thumbnail) }}"
+															<img class="default-img" src="{{ product_image_url($product->thumbnail) }}"
 																	alt="{{ $product->name }}">
-															@else
-																<img class="default-img" src="https://via.placeholder.com/550x750"
-																	alt="{{ $product->name }}">
-															@endif
 														</a>
 														<div class="button-head">
 															<div class="product-action">
@@ -532,13 +527,8 @@
 							<div class="single-product">
 								<div class="product-img">
 									<a href="{{ route('products.show', $product->slug) }}">
-										@if($product->thumbnail)
-											<img class="default-img" src="{{ asset($product->thumbnail) }}"
+										<img class="default-img" src="{{ product_image_url($product->thumbnail) }}"
 												alt="{{ $product->name }}">
-										@else
-											<img class="default-img" src="https://via.placeholder.com/550x750"
-												alt="{{ $product->name }}">
-										@endif
 										<span class="out-of-stock">Hot</span>
 									</a>
 
