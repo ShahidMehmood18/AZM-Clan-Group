@@ -368,7 +368,7 @@
 
         /* ===== PREMIUM MOBILE MENU STYLING ===== */
         .slicknav_menu {
-            display: block !important;
+            display: none;
             background: transparent !important;
             padding: 0 !important;
             margin: 0 !important;
@@ -515,6 +515,10 @@
                 flex: 0 0 auto !important;
                 margin: 0 !important;
                 width: auto !important;
+            }
+
+            .slicknav_menu {
+                display: block !important;
             }
 
             /* Hide Desktop Nav Bar */
